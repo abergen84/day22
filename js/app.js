@@ -13,14 +13,14 @@ function app() {
     }).then(function() {
         _.templateSettings.interpolate = /{([\s\S]+?)}/g;
 
-    })
-
+    
     var options = {
             api_key: "aavnvygu0h5r52qes74x9zvo"
         },
 
         //start app
         var client = new EtsyClient(options);
+    });
 
 }
 
@@ -29,7 +29,7 @@ function EtsyClient(x) {
         throw new Error("Yo where da API key?");
     }
 
-    this.etsy_url = "https://openapi.etsy.com/"; //instead of this., you could put "client.""
+    this.etsy_url = "https://openapi.etsy.com/"; //instead of "this.", you could put "EtsyClient." but that is like the Excel version of hardcoding
     this.version = x.api_version || "v2/";
     this.api_key = x.api_key;
     this.complete_api_url = this.etsy_url + this.version;
@@ -92,11 +92,28 @@ EtsyClient.prototype.setupRouting = function() {
             self.loadTemplate("listing"),
             self.pullListings(this.params.id)
         ).then(function() {
-            self.drawListing(arguments[0], arguments[1]);
+            self.drawListings(arguments[0], arguments[1]);
+
+            console.dir(self)
         })
     });
-}
 
+Path.map("#/message/:anymessage").to(function() {
+	alert(this.params.anymessage);
+})
+
+Path.map("#/listing/:id").to(function() {
+	$.when(
+		self.loadTemplate("singlelisting"),
+		self.pullListing(this.params.id)
+		).then(function() {
+			self.drawListing(arguments[0], arguments[1]);
+		})
+});
+
+
+
+//sets default hash to draw all listings
 Path.root("#/");
 Path.listen();
 

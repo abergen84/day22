@@ -14,13 +14,13 @@ function app() {
         _.templateSettings.interpolate = /{([\s\S]+?)}/g;
 
     
-    var options = {
+    var key = {
             api_key: "aavnvygu0h5r52qes74x9zvo"
-        },
+        }
 
         //start app
-        var client = new EtsyClient(options);
-    });
+        var client = new EtsyClient(key);
+    })
 
 }
 
@@ -72,15 +72,15 @@ EtsyClient.prototype.loadTemplate = function(name) {
 
 EtsyClient.prototype.drawListings = function(templateString, data) {
 
-    document.querySelector('#TemplateDestination').innerHTML = data.results.map(function(x) {
+    document.querySelector('#templateDestination').innerHTML = data.results.map(function(x) {
         return _.template(templateString, x);
     }).join('');
 }
 
 EtsyClient.prototype.drawListing = function(templateString, data) {
 
-    document.querySelector('#TemplateDestination').innerHTML =
-        return _.template(templateString, data.results[0]);
+    document.querySelector('#templateDestination').innerHTML =
+        _.template(templateString, data.results[0]);
 }
 
 EtsyClient.prototype.setupRouting = function() {

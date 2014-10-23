@@ -13,8 +13,8 @@ function app() {
     }).then(function() {
         _.templateSettings.interpolate = /{([\s\S]+?)}/g;
 
-    
-    var key = {
+
+        var key = {
             api_key: "aavnvygu0h5r52qes74x9zvo"
         }
 
@@ -98,24 +98,24 @@ EtsyClient.prototype.setupRouting = function() {
         })
     });
 
-Path.map("#/message/:anymessage").to(function() {
-	alert(this.params.anymessage);
-})
+    Path.map("#/message/:anymessage").to(function() {
+        alert(this.params.anymessage);
+    })
 
-Path.map("#/listing/:id").to(function() {
-	$.when(
-		self.loadTemplate("singlelisting"),
-		self.pullListing(this.params.id)
-		).then(function() {
-			self.drawListing(arguments[0], arguments[1]);
-		})
-});
+    Path.map("#/listing/:id").to(function() {
+        $.when(
+            self.loadTemplate("singlelisting"),
+            self.pullListing(this.params.id)
+        ).then(function() {
+            self.drawListing(arguments[0], arguments[1]);
+        })
+    });
 
 
 
-//sets default hash to draw all listings
-Path.root("#/");
-Path.listen();
+    //sets default hash to draw all listings
+    Path.root("#/");
+    Path.listen();
 
 
 }
